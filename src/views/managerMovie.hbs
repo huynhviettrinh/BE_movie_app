@@ -1,0 +1,112 @@
+<div>
+    <h3 class="text-center"> Movie/film</h3>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name Movie</th>
+                <th scope="col">Posters</th>
+                <th scope="col">Banner</th>
+                <th scope="col">Movie id</th>
+                <th scope="col">Release year</th>
+                <th scope="col">Category</th>
+                <th scope="col">Nation</th>
+                <th scope="col">Score</th>
+                <th scope="col">Introduction</th>
+                <th scope="col" class="text-center" colspan="3">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {{#each listMovie}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>
+                    <img src={{this.mainImage}} style="width: 120px;height: 150px;">
+                </td>
+                <td>
+                    <img src={{this.bannerImage}} style="width: 200px;height: 100px;">
+                </td>
+                <td>{{this.movieId}}</td>
+                <td>{{this.releaseYear}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.nation}}</td>
+                <td>{{this.score}}</td>
+                <td>{{this.introduction}}</td>
+                <td>
+                    <a href="/managerMovie/1" class="btn btn-primary">Edit movie</a>
+                </td>
+
+                {{#if this.isHaveMedia}}
+                <td>
+                    <a href="/managerMovie/editMediaMovie?movieId={{this.movieId}}&categoryId={{this.categoryId}}&name={{this.name}}"
+                        class="btn btn-warning">Edit media url</a>
+                </td>
+                {{else}}
+                <td>
+                    <a href="/managerMovie/addMediaMovie?movieId={{this.movieId}}&categoryId={{this.categoryId}}&name={{this.name}}&ch=media"
+                        class="btn btn-primary">Add media url</a>
+                </td>
+                {{/if}}
+
+
+                <td>
+                    <a href="/managerMovie/addSubMovie?movieId={{this.movieId}}&categoryId={{this.categoryId}}&name={{this.name}}&ch=sub"
+                        class="btn btn-primary">Add subtitles url</a>
+                </td>
+
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h3 class="text-center">TV series/serial</h3>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Name Movie</th>
+                <th scope="col">Posters</th>
+                <th scope="col">Banner</th>
+                <th scope="col">Movie id</th>
+                <th scope="col">Release year</th>
+                <th scope="col">Category</th>
+                <th scope="col">Nation</th>
+                <th scope="col">Score</th>
+                <th scope="col">Introduction</th>
+                <th scope="col" colspan="2">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            {{#each listMovieSerial}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>
+                    <img src={{this.mainImage}} style="width: 120px;height: 150px;">
+                </td>
+                <td>
+                    <img src={{this.bannerImage}} style="width: 200px;height: 100px;">
+                </td>
+                <td>{{this.movieId}}</td>
+                <td>{{this.releaseYear}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.nation}}</td>
+                <td>{{this.score}}</td>
+                <td>{{this.introduction}}</td>
+                <td>
+                    <a href="/managerMovie/1" class="btn btn-primary">Edit infor</a>
+                </td>
+
+                <td>
+                    <a href="/managerMovie/1" class="btn btn-info">Add episode</a>
+                </td>
+
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+</div>

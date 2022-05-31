@@ -1,0 +1,216 @@
+<div class="mt-4 mr-4 ml-4">
+    <form action="/saveMovie" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label>ID trailer youtube</label>
+                <input type="text" class="form-control" placeholder="ID trailer youtube" name="trailerId"
+                    autocomplete="off">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Movie id</label>
+                <input type="number" min="0" class="form-control" placeholder="Movie id" name="movieId"
+                    autocomplete="off">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Release year</label>
+                <input type="text" class="form-control" placeholder="Release year" name="releaseYear"
+                    autocomplete="off">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Movie name</label>
+                <input type="text" class="form-control" placeholder="Movie name" name="name" autocomplete="off">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Nation</label>
+                <input type="text" class="form-control" placeholder="Nation" name="nation" autocomplete="off">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Main image</label>
+                <input type="text" class="form-control" placeholder="Main image" name="mainImage" autocomplete="off">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Banner image</label>
+                <input type="text" class="form-control" placeholder="Banner image" name="bannerImage"
+                    autocomplete="off">
+            </div>
+
+
+            <div class="form-group col-md-2">
+                <label>Description</label>
+                <input type="text" class="form-control" placeholder="Description" name="introduction"
+                    autocomplete="off">
+            </div>
+
+
+            <div class="form-group col-md-2">
+                <label>Score</label>
+                <input type="number" max="10" min="0" class="form-control" placeholder="Score" name="score"
+                    autocomplete="off">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label>Episode count</label>
+                <input type="number" min="0" class="form-control" placeholder="Episode count" name="episodeCount"
+                    autocomplete="off">
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="categoryId" id="exampleRadios1" value="1">
+                <label class="form-check-label" for="exampleRadios1">
+                    TV series/serial
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="categoryId" id="exampleRadios2" value="0">
+                <label class="form-check-label" for="exampleRadios2">
+                    Movie/film
+                </label>
+            </div>
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Drama" id="Drama" name="category[]">
+                    <label class="form-check-label" for="Drama">
+                        Drama
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Action" id="Action" name="category[]">
+                    <label class="form-check-label" for="Action">
+                        Action
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Romance" id="Romance" name="category[]">
+                    <label class="form-check-label" for="Romance">
+                        Romance
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Fantasy" id="Fantasy" name="category[]">
+                    <label class="form-check-label" for="Fantasy">
+                        Fantasy
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Animation" id="Animation" name="category[]">
+                    <label class="form-check-label" for="Animation">
+                        Animation
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Suspense" id="Suspense" name="category[]">
+                    <label class="form-check-label" for="Suspense">
+                        Suspense
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Sci-Fi" id="Sci-Fi" name="category[]">
+                    <label class="form-check-label" for="Sci-Fi">
+                        Sci-Fi
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Horror" id="Horror" name="category[]">
+                    <label class="form-check-label" for="Horror">
+                        Horror
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Comedy" id="Comedy" name="category[]">
+                    <label class="form-check-label" for="Comedy">
+                        Comedy
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="form-group col-md-2">
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Crime" id="Crime" name="category[]">
+                    <label class="form-check-label" for="Crime">
+                        Crime
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Adventure" id="Adventure" name="category[]">
+                    <label class="form-check-label" for="Adventure">
+                        Adventure
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Thriller" id="Thriller" name="category[]">
+                    <label class="form-check-label" for="Thriller">
+                        Thriller
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Family" id="Family" name="category[]">
+                    <label class="form-check-label" for="Family">
+                        Family
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Musical" id="Musical" name="category[]">
+                    <label class="form-check-label" for="Musical">
+                        Musical
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="War" id="War" name="category[]">
+                    <label class="form-check-label" for="War">
+                        War
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Catastrophe" id="Catastrophe"
+                        name="category[]">
+                    <label class="form-check-label" for="Catastrophe">
+                        Catastrophe
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Documentary" id="Documentary"
+                        name="category[]">
+                    <label class="form-check-label" for="Documentary">
+                        Documentary
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

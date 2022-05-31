@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "axios": "^0.26.1",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.6",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.19.0"
+  },
+  "name": "server_movie",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huynhviettrinh/server_movie.git"
+  },
+  "keywords": [
+    "movie_server"
+  ],
+  "author": "dev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huynhviettrinh/server_movie/issues"
+  },
+  "homepage": "https://github.com/huynhviettrinh/server_movie#readme",
+  "description": "",
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
+  }
+}

@@ -1,0 +1,50 @@
+<div class="mt-4 mr-4 ml-4">
+    <a href="/managerMovie">Back</a>
+
+    <h1>{{name}}</h1>
+
+    <form action="/managerMovie/editMovieMediaUrl" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Movie Id</label>
+                <input type="text" class="form-control" value="{{movieId}}" name="movieId" disabled>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>Category id</label>
+                <input type="number" min="0" class="form-control" value="{{categoryId}}" name="categoryId" disabled>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>SeriesNo</label>
+                <input type="text" class="form-control" value="{{categoryId}}" name="seriesNo" disabled>
+            </div>
+
+
+            <input type="text" class="form-control" value="{{movieId}}" name="movieId" hidden>
+            <input type="number" min="0" class="form-control" value="{{categoryId}}" name="categoryId" hidden>
+            <input type="text" class="form-control" value="{{categoryId}}" name="seriesNo" hidden>
+
+        </div>
+
+        <h3 class="mt-4  mb-4">Add media url</h3>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-2">
+                <label>Episode Id</label>
+                <input type="text" class="form-control" placeholder="Episode Id" value="{{episodeId}}" disabled>
+                <input type="text" class="form-control" placeholder="Episode Id" name="episodeId" value="{{episodeId}}"
+                    hidden>
+
+            </div>
+            <div class="form-group col-md-10">
+                <label>Media Url</label>
+                <input type="text" class="form-control" placeholder="Media Url" name="mediaUrl" value="{{mediaUrl}}"
+                    autocomplete="off" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Update</button>
+    </form>
+</div>
