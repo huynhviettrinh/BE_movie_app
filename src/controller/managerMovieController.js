@@ -45,9 +45,9 @@ let managerMovieController = async (req, res, next) => {
 }
 
 let viewAddMoreInforMovieController = async (req, res, next) => {
-    var categoryId = req.query.categoryId
-    var movieId = req.query.movieId
-    var name = req.query.name
+    let categoryId = req.query.categoryId
+    let movieId = req.query.movieId
+    let name = req.query.name
     try {
         if (!req.query.categoryId && !req.query.movieId && !req.query.name && !req.query.ch) {
             return res.status(400).json({
@@ -82,8 +82,12 @@ let viewAddMediaSubMovieController = async (req, res, next) => {
         } else {
             if (req.query.ch == 'sub') {
                 let respond = await crudDB.getEpisodeId(movieId, categoryId)
+                if (respond) {
+                    res.render("addSubUrlMovie", { categoryId, movieId, name, episodeId: respond.episodeId })
 
-                res.render("addSubUrlMovie", { categoryId, movieId, name, episodeId: respond.episodeId })
+                } else {
+                    res.send(`Please add media url movie first <a href="/managerMovie">Back</a>`)
+                }
             } else if (req.query.ch == 'media') {
                 res.render("addMediaUrlMovie", { categoryId, movieId, name })
             }
@@ -96,13 +100,14 @@ let viewAddMediaSubMovieController = async (req, res, next) => {
 
 let addMediaSubMovieController = async (req, res, next) => {
     try {
+
+        console.log(req.body);
         let respond = await crudDB.addMediaSubMovieService(req.body)
 
         if (req.body.type == 'media') {
-            res.send(`${respond.message} <a href=/managerMovie/addSubMovie?movieId=${req.body.movieId}&categoryId=${req.body.categoryId}&name=${req.body.name}&ch=media">Back</a>`)
+            res.send(`${respond.message} <a href="/managerMovie">Back</a>`)
         } else if (req.body.type == 'sub') {
-            res.send(`${respond.message} <a href="/managerMovie/addSubMovie?movieId=${req.body.movieId}&categoryId=${req.body.categoryId}&name=${req.body.name}&ch=sub">Back</a>`)
-
+            res.send(`${respond.message} <a href="/managerMovie/addSubMovie?movieId=${req.body.movieId}&categoryId=${req.body.categoryId}&name=${req.body.name}&ch=sub">Backs</a>`)
         }
 
     } catch (error) {
@@ -142,6 +147,61 @@ let editMovieMediaUrlController = async (req, res) => {
     }
 }
 
+
+let viewManagerEpisodeController = async (req, res, next) => {
+    try {
+        let respond = await crudDB.getListEpisodeService(req.query)
+        if (respond.status != 0) {
+            res.send(`${respond.message} <a href=/managerMovie/managerEpisode?movieId=${req.query.movieId}&categoryId=${req.query.categoryId}&name=${req.query.name}&ch=media">Back</a>`)
+        }
+
+        res.render("managerEpisodeSeries", {
+            listEpisodeDetail: respond.data,
+            name: req.query.name,
+        })
+    } catch (error) {
+        console.log("Error in viewManagerEpisodeController", error);
+    }
+}
+
+let viewAddSubEpisodeController = async (req, res) => {
+    try {
+        if (!req.query.categoryId && !req.query.movieId && !req.query.name && !req.query.seriesNo && !req.query.episodeId) {
+            return res.status(400).json({
+                status: 1,
+                message: "Query failed"
+            })
+        } else {
+            res.render("addSubEpisodeSeries", {
+                movieId: req.query.movieId,
+                categoryId: req.query.categoryId,
+                name: req.query.name,
+                seriesNo: req.query.seriesNo,
+                episodeId: req.query.episodeId,
+
+            })
+
+        }
+
+    } catch (error) {
+        console.log("Error in viewAddSubEpisodeController", error);
+    }
+}
+
+let viewaddEpisodeMediaUrlController = async (req, res) => {
+    try {
+        let seriesNo = await crudDB.findSeriesHighest(req.query)
+        let categoryId = req.query.categoryId
+        let movieId = req.query.movieId
+        let name = req.query.name
+
+        res.render("addEpisodeMediaUrl", { categoryId, movieId, name, seriesNo })
+    } catch (error) {
+        console.log("Error in viewaddEpisodeMediaUrlController", error);
+
+    }
+}
+
 module.exports = {
     mangerMovie,
     addMovieController,
@@ -151,5 +211,8 @@ module.exports = {
     viewAddMoreInforMovieController,
     viewAddMediaSubMovieController,
     viewEditMediaSubMovieController,
-    editMovieMediaUrlController
+    editMovieMediaUrlController,
+    viewManagerEpisodeController,
+    viewAddSubEpisodeController,
+    viewaddEpisodeMediaUrlController
 }

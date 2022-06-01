@@ -1,0 +1,43 @@
+<div>
+    {{#if listEpisodeDetail}}
+    <a href="/managerMovie">Back</a>
+    <h3 class="text-center">TV series/serial {{name}}</h3>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col" class="col-md-1">SeriesNo</th>
+                <th scope="col" class="col-md-1">Movie ID</th>
+                <th scope="col" class="col-md-1">Episode ID</th>
+                <th scope="col" class="col-md-4">Media Url</th>
+                <th scope="col" colspan="2" class="col-md-2 text-center">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {{#each listEpisodeDetail}}
+            <tr>
+                <th>{{this.seriesNo}}</th>
+                <td>{{this.movieId}}</td>
+                <td>{{this.episodeId}}</td>
+                <td>{{this.mediaUrl}}</td>
+                <td>
+                    <a href="/managerMovie/managerEpisode?movieId={{this.movieId}}&categoryId={{this.categoryId}}&name={{this.name}}"
+                        class="btn btn-warning">Edit episode url</a>
+                </td>
+
+                <td>
+                    <a href="/managerMovie/managerEpisode/addSubEpisodeSeries?movieId={{this.movieId}}&categoryId={{this.categoryId}}&seriesNo={{this.seriesNo}}&episodeId={{this.episodeId}}"
+                        class="btn btn-primary">Add sub episode {{this.seriesNo}}</a>
+
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+    <h3 class="text-center text-danger">Current you have not added any episodes yet
+        <a href="/managerMovie">Back to add episode film</a>
+    </h3>
+
+    {{/if}}
+</div>

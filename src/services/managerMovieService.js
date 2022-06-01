@@ -74,7 +74,7 @@ let getMovieDetailService = async (movieId, categoryId) => {
 
         if (movie && movieDetail) {
             let data = await customData(movie, movieDetail, false)
-            data.episodeDetails = await getEpisodeDetails(movie.movieId, movie.categoryId)
+            data.episodeDetails = await getSubEpisodeDetails(movie.movieId, movie.categoryId)
             return {
                 status: 0,
                 data: data
@@ -91,8 +91,22 @@ let getMovieDetailService = async (movieId, categoryId) => {
 
 }
 
-let getEpisodeDetails = async (movieId, categoryId) => {
+let getSubEpisodeDetails = async (movieId, categoryId) => {
     try {
+
+        let seriesNo = await db.Subtitle.findOne({
+            where: {
+                movieId: movieId,
+                categoryId: categoryId,
+            },
+            order: [
+                ['seriesNo', 'DESC'],
+            ],
+            attributes: ["seriesNo"],
+            raw: true
+        })
+
+
         let subtitles = await db.Subtitle.findAll({
             where: {
                 movieId: movieId,
@@ -104,30 +118,55 @@ let getEpisodeDetails = async (movieId, categoryId) => {
             raw: true
         })
 
-        return [
-            {
-                episodeId: subtitles[0].episodeId,
-                seriesNo: subtitles[0].seriesNo,
-                subtitles: filterSubtitles(subtitles)
-            }
-        ]
+
+        return filterSubtitles(subtitles, seriesNo.seriesNo)
+
+
 
     } catch (error) {
-        console.log("Error in getEpisodeDetails", error);
+        console.log("Error in getSubEpisodeDetails", error);
 
     }
 }
 
-let filterSubtitles = (data) => {
+
+let filterSubtitles = (data, seriesNo) => {
     let arr = []
 
-    data.forEach((sub, index) => {
-        arr[index] = {
-            language: sub.language,
-            languageAbbr: sub.languageAbbr,
-            subtitlingUrl: sub.subtitlingUrl
+    if (seriesNo > 0) {
+        for (let i = 0; i < seriesNo; i++) {
+            let list = data.filter((value, index) => {
+                return value.seriesNo == (i + 1)
+            })
+            arr[i] = {
+                episodeId: list[0].episodeId,
+                seriesNo: list[0].seriesNo,
+                subtitles: loopSubtitles(list)
+            }
         }
-    });
+
+    } else {
+        arr[0] = {
+            episodeId: data[0].episodeId,
+            seriesNo: data[0].seriesNo,
+            subtitles: loopSubtitles(data)
+        }
+    }
+    return arr
+
+
+}
+
+
+let loopSubtitles = (data) => {
+    let arr = []
+    data.forEach((item, index) => {
+        arr[index] = {
+            language: item.language,
+            languageAbbr: item.languageAbbr,
+            subtitlingUrl: item.subtitlingUrl
+        }
+    })
 
     return arr
 }
@@ -170,7 +209,6 @@ let checkHaveMedia = async (data) => {
         console.log(error);
     }
 }
-
 
 let queryListMovies = async (categoryId) => {
     let movieDetail;
@@ -218,7 +256,6 @@ let queryListMovies = async (categoryId) => {
         }
     }
 }
-
 
 let customData = (movie, movieDetail, isList) => {
 
@@ -278,7 +315,6 @@ let addMediaSubMovieService = async (data) => {
             }
         } else if (data.type == 'sub') {
             let arr = data.language.split(',')
-            console.log(data.subtitlingUrl);
 
             let check = await db.Subtitle.findOne({
                 where: {
@@ -310,21 +346,11 @@ let addMediaSubMovieService = async (data) => {
                     message: "add successfully"
                 }
             }
-
-
-
-
         }
-
-
-
-
-
     } catch (error) {
         console.log("Error in addMoreInforMovieService", error);
     }
 }
-
 
 let getEpisodeId = async (movieId, categoryId) => {
     try {
@@ -379,6 +405,70 @@ let editMovieMediaUrlService = async (data) => {
 }
 
 
+let getListEpisodeService = async (data) => {
+    try {
+        if (!data.movieId && !data.categoryId) {
+            return {
+                status: 1,
+                message: "Error query failed"
+            }
+        }
+
+        let listEpisodeDetail = await db.MediaMovie.findAll({
+            where: {
+                movieId: data.movieId,
+                categoryId: data.categoryId,
+            },
+            attributes: {
+                exclude: arrExclude,
+            },
+            raw: true
+        })
+
+        return {
+            status: 0,
+            data: listEpisodeDetail
+        }
+
+
+
+    } catch (error) {
+        console.log("Error in getListEpisodeService", error);
+
+    }
+}
+
+let findSeriesHighest = async (data) => {
+    try {
+        if (!data.movieId && !data.categoryId) {
+            return {
+                status: 1,
+                message: "Error query failed"
+            }
+        }
+
+        let seriesNo = await db.MediaMovie.findOne({
+            where: {
+                movieId: data.movieId,
+                categoryId: data.categoryId,
+            },
+            order: [
+                ['seriesNo', 'DESC'],
+            ],
+            attributes: ["seriesNo"],
+            raw: true
+        })
+        if (seriesNo) {
+            return seriesNo.seriesNo + 1
+        } else {
+            return 1
+
+        }
+    } catch (error) {
+        console.log("Error in getListEpisodeService", error);
+
+    }
+}
 
 module.exports = {
     addMovieService,
@@ -386,7 +476,9 @@ module.exports = {
     managerMovieService,
     addMediaSubMovieService,
     editMovieMediaUrlService,
-    getEpisodeId
+    getEpisodeId,
+    getListEpisodeService,
+    findSeriesHighest
 }
 
 

@@ -75,8 +75,7 @@
                 <th scope="col">Nation</th>
                 <th scope="col">Score</th>
                 <th scope="col">Introduction</th>
-                <th scope="col" colspan="2">Action</th>
-
+                <th scope="col" colspan="3">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -101,7 +100,13 @@
                 </td>
 
                 <td>
-                    <a href="/managerMovie/1" class="btn btn-info">Add episode</a>
+                    <a href="/managerMovie/addEpisodeMediaUrl?movieId={{this.movieId}}&categoryId={{this.categoryId}}&name={{this.name}}&ch=media"
+                        class="btn btn-secondary">Add episode series details</a>
+                </td>
+
+                <td>
+                    <a href="/managerMovie/managerEpisode?movieId={{this.movieId}}&categoryId={{this.categoryId}}&name={{this.name}}"
+                        class="btn btn-info">Manager episode series</a>
                 </td>
 
             </tr>

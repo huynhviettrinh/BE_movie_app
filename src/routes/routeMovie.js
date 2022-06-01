@@ -15,6 +15,10 @@ let routeMovie = (app) => {
     app.get('/managerMovie/addSubMovie', managerMovie.viewAddMediaSubMovieController)
     app.get('/managerMovie/editMediaMovie', managerMovie.viewEditMediaSubMovieController)
     app.post('/managerMovie/editMovieMediaUrl', managerMovie.editMovieMediaUrlController)
+    app.get('/managerMovie/managerEpisode', managerMovie.viewManagerEpisodeController)
+    app.get('/managerMovie/managerEpisode', managerMovie.viewManagerEpisodeController)
+    app.get('/managerMovie/managerEpisode/addSubEpisodeSeries', managerMovie.viewAddSubEpisodeController)
+    app.get('/managerMovie/addEpisodeMediaUrl', managerMovie.viewaddEpisodeMediaUrlController)
 
 
 }

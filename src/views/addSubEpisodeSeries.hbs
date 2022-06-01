@@ -1,5 +1,5 @@
 <div class="mt-4 mr-4 ml-4">
-    <a href="/managerMovie">Back</a>
+    <a href="/managerMovie/managerEpisode?movieId={{movieId}}&categoryId={{categoryId}}&name={{name}}">Back</a>
     <h1>{{name}}</h1>
 
     <form action="/managerMovie/moreInfor" method="post">
@@ -16,13 +16,13 @@
 
             <div class="form-group col-md-4">
                 <label>SeriesNo</label>
-                <input type="text" class="form-control" value="{{categoryId}}" name="seriesNo" disabled>
+                <input type="text" class="form-control" value="{{seriesNo}}" name="seriesNo" disabled>
             </div>
 
 
             <input type="text" class="form-control" value="{{movieId}}" name="movieId" hidden>
             <input type="number" min="0" class="form-control" value="{{categoryId}}" name="categoryId" hidden>
-            <input type="text" class="form-control" value="{{categoryId}}" name="seriesNo" hidden>
+            <input type="text" class="form-control" value="{{seriesNo}}" name="seriesNo" hidden>
             <input type="text" class="form-control" value="sub" name="type" hidden>
 
             <input type="text" class="form-control" value="{{name}}" name="name" hidden>
@@ -63,6 +63,7 @@
                     </label>
                 </div>
             </div>
+
 
         </div>
 
