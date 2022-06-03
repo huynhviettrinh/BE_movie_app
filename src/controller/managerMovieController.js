@@ -1,4 +1,5 @@
 const crudDB = require('../services/managerMovieService')
+const db = require('../models/index')
 
 
 let mangerMovie = (req, res, next) => {
@@ -101,7 +102,6 @@ let viewAddMediaSubMovieController = async (req, res, next) => {
 let addMediaSubMovieController = async (req, res, next) => {
     try {
 
-        console.log(req.body);
         let respond = await crudDB.addMediaSubMovieService(req.body)
 
         if (req.body.type == 'media') {
@@ -111,7 +111,7 @@ let addMediaSubMovieController = async (req, res, next) => {
         }
 
     } catch (error) {
-        console.log("Error in addMoreInforMovieController", error);
+        console.log("Error in addMediaSubMovieController", error);
     }
 
 
@@ -202,6 +202,79 @@ let viewaddEpisodeMediaUrlController = async (req, res) => {
     }
 }
 
+let getMediaMovieController = async (req, res) => {
+    try {
+
+        let media = await db.MediaMovie.findOne({
+            where: {
+                episodeId: req.query.episodeId,
+                categoryId: req.query.categoryId,
+                movieId: req.query.movieId
+            },
+            attributes: ["episodeId", "mediaUrl"],
+            raw: true
+        })
+
+        media.totalDuration = 3605
+
+        res.json({
+            status: 0,
+            data: media
+        })
+
+    } catch (error) {
+        console.log("Error in getMediaMovieController", error);
+    }
+}
+
+let getListMovieFilmSeriesController = async (req, res) => {
+    try {
+        let arr = []
+        let homeSectionName = ["Movie/film", "TV series/serial", "New movie"]
+
+        let media = await db.Movie.findAll({
+            attributes: {
+                exclude: ['createdAt', 'updatedAt', 'id', "bannerImage"],
+            },
+            order: [
+                ['createdAt', 'DESC'],
+            ],
+            raw: true
+        })
+
+        for (let index = 0; index < 3; index++) {
+
+            if (index == 2) {
+                arr[index] = {
+                    homeSectionName: homeSectionName[index],
+                    listMovie: media
+                }
+            } else {
+                let listCategory = media.filter((media) => {
+                    return media.categoryId == index
+                })
+
+                arr[index] = {
+                    homeSectionName: homeSectionName[index],
+                    listMovie: listCategory
+                }
+            }
+
+
+        }
+
+
+
+        res.json({
+            status: 0,
+            data: arr
+        })
+
+    } catch (error) {
+        console.log("Error in getMediaMovieController", error);
+    }
+}
+
 module.exports = {
     mangerMovie,
     addMovieController,
@@ -214,5 +287,7 @@ module.exports = {
     editMovieMediaUrlController,
     viewManagerEpisodeController,
     viewAddSubEpisodeController,
-    viewaddEpisodeMediaUrlController
+    viewaddEpisodeMediaUrlController,
+    getMediaMovieController,
+    getListMovieFilmSeriesController
 }
